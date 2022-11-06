@@ -39,4 +39,19 @@ const generateAvatar = () => {
 }
 
 addEventListener('load', () => generateAvatar());
-generateButton.addEventListener('click', generateAvatar)
+
+generateButton.addEventListener('click', generateAvatar);
+downloadButton.addEventListener('click', () => {
+    html2canvas(avatar).then(canvas => {
+        document.body.appendChild(canvas);
+        const image = canvas.toDataURL();
+
+        const link = document.createElement('a');
+        link.download = 'avatar.png';
+        link.href = image;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        document.body.removeChild(canvas);
+    });
+});
